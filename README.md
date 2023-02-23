@@ -77,6 +77,7 @@ require 'kraken_ruby_client'
 client = Kraken::Client.new
 
 client.server_time
+client.system_status
 client.assets
 client.assets('USD')
 client.assets('xbt,zec,dash,xmr,eth,etc,usd,eur,gbp,jpy')
@@ -85,7 +86,8 @@ client.asset_pairs(:zecusd)
 client.asset_pairs('xbtusd,etheur')
 client.ticker('xbtusd,xmreur,ethgbp,ethjpy')
 client.ohlc(:xbtusd)
-client.order_book('etheur')
+client.order_book(pair: 'etheur')
+client.order_book(pair: 'xbtusd', count: 50) # Returns 50 of the latest bids/asks
 client.trades('DASHXBT')
 client.spread(:XMREUR)
 client.spread('XBTJPY')

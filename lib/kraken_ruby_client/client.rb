@@ -58,6 +58,17 @@ module Kraken
       get_public 'Time'
     end
 
+    # Get the current system status or trading mode.
+    # URL: https://docs.kraken.com/rest/#tag/Market-Data/operation/getSystemStatus
+    # Returns a hash with keys +error+ and +result+.
+    # +result+ is a Hash with the following keys:
+    #   +status+  = "online", "maintenance","cancel_only" and "post_only"
+    #   +timestamp+   = Current timestamp (RFC3339)
+    #
+    def system_status
+      get_public 'SystemStatus'
+    end
+
     # Get asset info
     # URL: https://api.kraken.com/0/public/Assets
     # Input:
@@ -149,8 +160,9 @@ module Kraken
       get_public 'OHLC', pair: pair, interval: interval, since: since
     end
 
-    def order_book(pair = nil)
-      get_public 'Depth', pair: pair
+    # Count parameter is the maximum number of asks/bids to return (accepts values 1-500)
+    def order_book(pair: nil, count: 1)
+      get_public 'Depth', pair: pair, count: count
     end
 
     def trades(pair, since = nil)
